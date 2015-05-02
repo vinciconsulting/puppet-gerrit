@@ -352,6 +352,7 @@ class gerrit(
   # - $replicate_path
   # - $contactstore
   # - $robots_txt_source
+  #
   apache::vhost { $vhost_name:
     port     => 443,
     docroot  => 'MEANINGLESS ARGUMENT',
@@ -359,6 +360,7 @@ class gerrit(
     template => 'gerrit/gerrit.vhost.erb',
     ssl      => true,
   }
+  import apache::mod
   apache::mod { 'rewrite': }
   apache::mod { 'proxy': }
   apache::mod { 'proxy_http': }
