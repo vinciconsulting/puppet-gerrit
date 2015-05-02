@@ -183,8 +183,14 @@ class gerrit(
     ensure => present,
   }
 
-  package { 'openjdk-7-jre-headless':
+  $openjdk-7 = $$operatingsystem ? {
+        /Redhat|Centos/  => "java-1.7.0-openjdk-headless",
+        default => "openjdk-7-jre-headless",
+  }
+
+  package { "$openjdk-7":
     ensure => present,
+    alias => "openjdk-7-jre-headless",
   }
 
   package { 'openjdk-6-jre-headless':
@@ -352,17 +358,17 @@ class gerrit(
     template => 'gerrit/gerrit.vhost.erb',
     ssl      => true,
   }
-  a2mod { 'rewrite':
+  apache::mod { 'rewrite':
     ensure => present,
   }
-  a2mod { 'proxy':
+  apache::mod { 'proxy':
     ensure => present,
   }
-  a2mod { 'proxy_http':
+  apache::mod { 'proxy_http':
     ensure => present,
   }
   if ! defined(A2mod['cgi']) {
-    a2mod { 'cgi':
+    apache::mod { 'cgi':
       ensure => present,
     }
   }
