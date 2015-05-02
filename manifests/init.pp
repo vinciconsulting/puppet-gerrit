@@ -359,19 +359,11 @@ class gerrit(
     template => 'gerrit/gerrit.vhost.erb',
     ssl      => true,
   }
-  apache::mod { 'rewrite':
-    ensure => present,
-  }
-  apache::mod { 'proxy':
-    ensure => present,
-  }
-  apache::mod { 'proxy_http':
-    ensure => present,
-  }
+  apache::mod { 'rewrite': }
+  apache::mod { 'proxy': }
+  apache::mod { 'proxy_http': }
   if ! defined(A2mod['cgi']) {
-    apache::mod { 'cgi':
-      ensure => present,
-    }
+    apache::mod { 'cgi': }
   }
 
   if $ssl_cert_file_contents != '' {
