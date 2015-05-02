@@ -360,7 +360,9 @@ class gerrit(
     template => 'gerrit/gerrit.vhost.erb',
     ssl      => true,
   }
-  import apache::mod
+
+  import apache
+
   apache::mod { 'rewrite': }
   apache::mod { 'proxy': }
   apache::mod { 'proxy_http': }
