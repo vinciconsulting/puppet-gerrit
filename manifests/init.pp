@@ -183,7 +183,7 @@ class gerrit(
     ensure => present,
   }
 
-  $openjdk-7 = $$operatingsystem ? {
+  $openjdk-7 = $operatingsystem ? {
         /Redhat|Centos/  => "java-1.7.0-openjdk-headless",
         default => "openjdk-7-jre-headless",
   }
