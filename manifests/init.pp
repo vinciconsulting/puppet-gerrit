@@ -166,6 +166,7 @@ class gerrit(
   $java_home = $::lsbdistcodename ? {
     'precise' => '/usr/lib/jvm/java-7-openjdk-amd64/jre',
     'trusty'  => '/usr/lib/jvm/java-7-openjdk-amd64/jre',
+    'Core'    => '/usr/lib/jvm/jre-1.7.0-openjdk',
   }
 
   $gerrit_war = '/home/gerrit2/review_site/bin/gerrit.war'
