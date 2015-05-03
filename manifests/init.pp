@@ -158,7 +158,8 @@ class gerrit(
   $secondary_index = false,
   $secondary_index_type = 'LUCENE',
   $enable_javamelody_top_menu = false,
-) {
+)
+{
   include apache
   include jeepyb
   include pip
@@ -363,7 +364,6 @@ class gerrit(
 
 
   apache::mod { 'proxy_http': }
-  }
 
   if $ssl_cert_file_contents != '' {
     file { $ssl_cert_file:
