@@ -719,10 +719,7 @@ package { "$mysql_java":
   #
   if ($contactstore == true) {
 
-    $bouncycastle_pg = $operatingsystem ? {
-        /Fedora|CentOS/  => "bouncycastle",
-        default => "libbcpg-java",
-    }
+   if ($operatingsystem !~ /Fedora|CentOS/) {
     package { "$bouncycastle_pg":
       ensure => present,
       alias => 'libbcpg-java',
@@ -754,8 +751,8 @@ package { "$mysql_java":
       source  => 'puppet:///modules/gerrit/fakestore.cgi',
       require => File['/home/gerrit2/review_site/lib'],
     }
+   }
   }
-
   # Remove libs installed by Gerrit init.
   tidy { '/home/gerrit2/review_site/lib':
     recurse => true,
