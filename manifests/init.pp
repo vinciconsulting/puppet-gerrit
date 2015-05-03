@@ -636,7 +636,7 @@ class gerrit(
 
 package { "$mysql_java":
     ensure => present,
-    alias => 'libmysql-java',,
+    alias => 'libmysql-java',
   }
   file { '/home/gerrit2/review_site/lib/mysql-connector-java.jar':
     ensure  => link,
