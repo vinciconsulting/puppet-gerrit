@@ -716,9 +716,16 @@ package { "$mysql_java":
 
   # Install Bouncy Castle's OpenPGP plugin and populate the contact store
   # public key file if we're using that feature.
+  #
   if ($contactstore == true) {
-    package { 'libbcpg-java':
+
+    $bouncycastle_pg = $operatingsystem ? {
+        /Fedora|CentOS/  => "bouncycastle-pg",
+        default => "libbcpg-java",
+    }
+    package { "$bouncycastle_pg":
       ensure => present,
+      alias => 'libbcpg-java',
     }
     file { '/home/gerrit2/review_site/lib/bcpg.jar':
       ensure  => link,
