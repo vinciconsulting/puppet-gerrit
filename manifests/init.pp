@@ -720,7 +720,7 @@ package { "$mysql_java":
   if ($contactstore == true) {
 
     $bouncycastle_pg = $operatingsystem ? {
-        /Fedora|CentOS/  => "bouncycastle-pg",
+        /Fedora|CentOS/  => "bouncycastle",
         default => "libbcpg-java",
     }
     package { "$bouncycastle_pg":
