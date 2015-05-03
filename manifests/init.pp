@@ -362,7 +362,6 @@ class gerrit(
   }
 
 
-  apache::mod { 'proxy': }
   apache::mod { 'proxy_http': }
   if ! defined(A2mod['cgi']) {
     apache::mod { 'cgi': }
