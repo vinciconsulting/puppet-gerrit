@@ -185,7 +185,7 @@ class gerrit(
   }
 
   $openjdk7 = $operatingsystem ? {
-        /Redhat|Centos/  => "java-1.7.0-openjdk-headless",
+        /Redhat|CentOS/  => "java-1.7.0-openjdk-headless",
         default => "openjdk-7-jre-headless",
   }
 
@@ -361,7 +361,6 @@ class gerrit(
     ssl      => true,
   }
 
-  import apache
 
   apache::mod { 'proxy': }
   apache::mod { 'proxy_http': }
