@@ -673,12 +673,12 @@ package { "$mysql_java":
     require => Package['mysql-client'],
   }
 
-   $bountycastle = $operatingsystem ? {
-        /Fedora|CentOS/  => "bountycastle",
+   $bouncycastle = $operatingsystem ? {
+        /Fedora|CentOS/  => "bouncycastle",
         default => "libbcprov-java",
     }
 
-  package { "$bountycastle":
+  package { "$bouncycastle":
     ensure => present,
     alias => 'libbcprov-java',
   }
@@ -693,9 +693,17 @@ package { "$mysql_java":
 
   # Required for the version of Bouncy Castle on Trusty and later
   if ($::lsbdistcodename != 'precise') {
-    package { 'libbcpkix-java':
-      ensure => present,
+
+    $bouncycastle_pkix = $operatingsystem ? {
+        /Fedora|CentOS/  => "bouncycastle-kix",
+        default => "libbcpkix-java",
     }
+
+    package { "$bouncycastle_pkix":
+      ensure => present,
+      alias => 'libbcpkix-java'
+    }
+
     file { '/home/gerrit2/review_site/lib/bcpkix.jar':
       ensure  => link,
       target  => '/usr/share/java/bcpkix.jar',
