@@ -657,14 +657,14 @@ package { "$mysql_java":
 
   # Add config to make clients assume UTF-8 encoding
 
-  
-
-  file { 'my.cfg':
-    ensure  => present,
-    path = $operatingsystem ? {
+  $mycfg_path = $operatingsystem ? {
         /Fedora|CentOS/  => "/etc/my.cfg",
         default => "/etc/mysql/conf.d/client.conf",
     }
+
+  file { 'my.cfg':
+    ensure  => present,
+    path = $mycfg_path,
     source  => 'puppet:///modules/gerrit/my.cnf',
     replace => true,
     owner   => 'root',
