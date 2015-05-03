@@ -363,7 +363,6 @@ class gerrit(
 
   import apache
 
-  apache::mod { 'rewrite': }
   apache::mod { 'proxy': }
   apache::mod { 'proxy_http': }
   if ! defined(A2mod['cgi']) {
@@ -631,8 +630,14 @@ class gerrit(
     ensure  => absent,
   }
 
-  package { 'libmysql-java':
+    $mysql_java = $operatingsystem ? {
+        /Fedora|CentOS/  => "mysql-connector-java",
+        default => "libmysql-java",
+    }
+
+package { "$mysql_java":
     ensure => present,
+    alias => 'libmysql-java',,
   }
   file { '/home/gerrit2/review_site/lib/mysql-connector-java.jar':
     ensure  => link,
@@ -641,11 +646,19 @@ class gerrit(
       Package['libmysql-java'],
       File['/home/gerrit2/review_site/lib'],
     ],
+
   }
 
-  package { 'mysql-client':
+   $mysql_client = $operatingsystem ? {
+        /Fedora|CentOS/  => "mysql",
+        default => "mysql-client",
+    }
+
+  package { "$mysql_client":
     ensure => present,
+    alias => 'mysql-client',
   }
+
   # Add config to make clients assume UTF-8 encoding
   file { '/etc/mysql/conf.d/client.conf':
     ensure  => present,
@@ -657,8 +670,14 @@ class gerrit(
     require => Package['mysql-client'],
   }
 
-  package { 'libbcprov-java':
+   $bountycastle = $operatingsystem ? {
+        /Fedora|CentOS/  => "bountycastle",
+        default => "libbcprov-java",
+    }
+
+  package { "$bountycastle":
     ensure => present,
+    alias => 'libbcprov-java',
   }
   file { '/home/gerrit2/review_site/lib/bcprov.jar':
     ensure  => link,
