@@ -664,7 +664,7 @@ package { "$mysql_java":
 
   file { 'my.cfg':
     ensure  => present,
-    path = $mycfg_path,
+    path    => $mycfg_path,
     source  => 'puppet:///modules/gerrit/my.cnf',
     replace => true,
     owner   => 'root',
