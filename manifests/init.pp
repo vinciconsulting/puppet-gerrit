@@ -646,7 +646,7 @@ package { "$mysql_java":
   }
 
    $mysql_client = $operatingsystem ? {
-        /Fedora|CentOS/  => "mysql",
+        /Fedora|CentOS/  => "mariadb",
         default => "mysql-client",
     }
 
