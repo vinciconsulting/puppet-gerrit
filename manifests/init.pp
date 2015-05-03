@@ -363,8 +363,6 @@ class gerrit(
 
 
   apache::mod { 'proxy_http': }
-  if ! defined(A2mod['cgi']) {
-    apache::mod { 'cgi': }
   }
 
   if $ssl_cert_file_contents != '' {
