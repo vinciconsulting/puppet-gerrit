@@ -695,7 +695,7 @@ package { "$mysql_java":
   if ($::lsbdistcodename != 'precise') {
 
     $bouncycastle_pkix = $operatingsystem ? {
-        /Fedora|CentOS/  => "bouncycastle-kix",
+        /Fedora|CentOS/  => "bouncycastle-pkix",
         default => "libbcpkix-java",
     }
 
